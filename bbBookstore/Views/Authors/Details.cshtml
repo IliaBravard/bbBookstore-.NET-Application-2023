@@ -1,0 +1,60 @@
+﻿@model Author
+
+@{
+    ViewData["Title"] = "Author Details";
+}
+
+<div class="row text">
+    <div class="text-center">
+        <h1>Details for @Model.FirstName @Model.LastName</h1>
+    </div>
+
+    <div class="col-md-6 offset-md-3">
+        <div class="col-md-8 offset-2">
+                <div class="form-group text-center">
+                <img class="img-thumbnail" style="max-width: 200px; max-height: 250px;" id="ProfileImagePreview" />
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="ProfileImage" class="control-label mt-2 mb-1"></label>
+                    <input asp-for="ProfileImage" class="form-control" readonly/>
+                    <span asp-validation-for="ProfileImage" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="FirstName" class="control-label mt-2 mb-1"></label>
+                    <input asp-for="FirstName" class="form-control" readonly />
+                    <span asp-validation-for="FirstName" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="LastName" class="control-label mt-2 mb-1"></label>
+                    <input asp-for="LastName" class="form-control" readonly />
+                    <span asp-validation-for="LastName" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Background" class="control-label mt-2 mb-1"></label>
+                    <input asp-for="Background" class="form-control" readonly />
+                    <span asp-validation-for="Background" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mt-3">
+                @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+                {
+                    <a class="btn btn-outline-success float-end-right" asp-action="Edit" asp-route-id="@Model.Id">Edit </a>
+                }
+                    | <a class="btn btn-outline-secondary" asp-action="Index">Show All Authors</a>
+                </div>
+        </div>
+    </div>
+
+    @section Scripts {
+        <script>
+
+            $(document).ready(function () {
+                var output = document.getElementById('ProfileImagePreview');
+                output.src = $("#ProfileImage").val();
+            })
+        </script>
+    }

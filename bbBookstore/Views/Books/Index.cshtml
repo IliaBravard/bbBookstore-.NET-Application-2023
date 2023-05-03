@@ -1,0 +1,60 @@
+﻿@model IEnumerable<Book>
+
+@{
+    ViewData["Title"] = "Books";
+}
+
+<style>
+    .card:hover {
+        transform: scale(1.03);
+    }
+
+    .card{
+        transition: all 0.3s;
+    }
+</style>
+
+<div class="row">
+    @foreach (var item in Model)
+    {
+        <div class="col-md-4 col-xs-6 border-primary mb-3">
+            <div class="card mb-3 bg-image shadow-lg" style="max-width: 540px; max-height: 600px; border: 1px solid black;">
+                <div class="row g-0">
+                    <div class="col-md-12">
+                        <div class="card-header text-white text-center" style="background-color:grey;">
+                            <p class="card-text">
+                                <h5 class="card-title user-select-all">
+                                    @item.BookTitle
+                                    @if(User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+                                    {
+                                        <a class="text-white float-end" asp-action="Edit" asp-route-id="@item.Id"><i class="bi-pencil-square" style="background-color: grey;"></i></a>
+                                    }
+                                </h5>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-md-6 bg-image hover-zoom">
+                        <img src="@item.BookImage" height="280px" width="200px" alt="@item.BookTitle" style="border-top-left-radius: 25px; border-bottom-right-radius: 25px;">
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card-body">
+                            <p class="card-text"><b>ISBN: </b>@item.ISBN</p>
+                            <p class="card-text"><b>Genre: </b>@item.BookGenre</p>
+                            <p class="card-text"><b>Publisher </b>@item.Publisher.Name</p>
+                            <p class="card-text"><b>Author: </b>@item.Author.FirstName @item.Author.LastName</p>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="card-footer">
+                            <p class="card-text">
+                                <a class="btn btn-outline-primary float-end" asp-action="Details" asp-route-id="@item.Id"><i class="bi bi-eye-fill"></i> Show Details</a>
+                                <a class="btn btn-success text-white" asp-controller="Orders" asp-action="AddItemToShoppingCart" asp-route-id="@item.Id"><i class="bi bi-cart-plus"></i>Add to Cart (@item.Price.ToString("C"))</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+    </div>
+@await Html.PartialAsync("_CreateItem", "Books")

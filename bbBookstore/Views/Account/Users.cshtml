@@ -1,0 +1,38 @@
+﻿@model IEnumerable<ApplicationUser>
+
+@{
+    ViewData["Title"] = "Users";
+}
+
+<div class="row">
+    <div class="col-md-6 offset-md-3">
+        <p>
+            <h4>List of All Users</h4>
+        </p>
+        <table class="table table-hover">
+            <thad>
+                <tr style="background-color: black; color: white; font-size: 20px;">
+                    <th style="text-align: center">@Html.DisplayNameFor(model => model.FullName)</th>
+                    <th style="text-align: center">@Html.DisplayNameFor(model => model.UserName)</th>
+                    <th style="text-align: center">@Html.DisplayNameFor(model => model.Email)</th>
+                </tr>
+            </thad>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td class="align-middle">
+                            @Html.DisplayFor(modelItem => item.FullName)
+                        </td>
+                        <td class="align-middle">
+                            @Html.DisplayFor(modelItem => item.UserName)
+                        </td>
+                        <td class="align-middle">
+                            @Html.DisplayFor(modelItem => item.Email)
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

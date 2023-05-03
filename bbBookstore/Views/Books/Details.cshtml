@@ -1,0 +1,55 @@
+﻿@model Book
+
+@{
+    ViewData["Title"] = "Book Details";
+}
+
+<div class="row">
+    <div class="col-md-8 offset-2">
+        <div class="row g-0">
+            <div class="col-md-12">
+                <div class="card-header text-whire bg-info">
+                    <p class="card-text">
+                        <h5 class="card-title">
+                            @Model.BookTitle
+                        </h5>
+                    </p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <img src="@Model.BookImage" width="100%" alt="@Model.BookTitle">
+            </div>
+            <div class="col-md-8">
+                <div class="card-body">
+                    <p class="card-text">"@Model.Review"</p>
+                    <p class="card-text"><b>ISBN: </b>@Model.ISBN</p>
+                    <p class="card-text"><b>Genre: </b>@Model.BookGenre</p>
+                    <p class="card-text">
+                        <b>Publisher: </b>
+                        <a asp-controller="Publishers" asp-action="Details" asp-route-id="@Model.PublisherId">
+                            @Model.Publisher.Name
+                        </a>
+                    </p>
+
+                    <p class="card-text">
+                        <b>Author: </b>
+                        <hr />
+                        <div class="row">
+                            <img class="border-info rounded-circle" src="@Model.Author.ProfileImage" style="max-width: 50px;"/>
+                            <br />
+                            <a asp-controller="Authors" asp-action="Details" asp-route-id="@Model.Author.Id">@Model.Author.FirstName @Model.Author.LastName</a>
+                        </div>
+                    </p>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="card-footer">
+                    <p class="card-text">
+                        <a class="btn btn-outline-primary float-end" asp-action="Index"><i class="bi bi-eye-fill"></i> Back To List</a>
+                        <a class="btn btn-success text-white" asp-controller="Orders" asp-action="AddItemToShoppingCart" asp-route-id="@Model.Id"><i class="bi bi-cart-plus"></i>Add to Cart (@Model.Price.ToString("C"))</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
